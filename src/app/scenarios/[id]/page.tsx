@@ -174,22 +174,33 @@ export default function ScenarioPage({
         <motion.div
           initial={{ opacity: 0, height: 0 }}
           animate={{ opacity: 1, height: "auto" }}
-          className="p-4 rounded-xl border border-primary/20 bg-primary/5"
+          className="p-5 rounded-2xl border border-primary/20 bg-primary/[0.03]"
         >
-          <p className="text-sm font-medium mb-2">Enter your Claude API Key</p>
-          <p className="text-xs text-muted-foreground mb-3">
-            Your key is stored locally in your browser and sent directly to the
-            Anthropic API. It is never stored on any server.
+          <p className="text-sm font-medium mb-1">Enable AI Grading</p>
+          <p className="text-xs text-muted-foreground mb-3 leading-relaxed">
+            To use AI-powered grading, you need a <span className="text-foreground font-medium">Claude API key</span> from Anthropic.
+            Go to <span className="text-primary">console.anthropic.com</span>, create an account, load up some credit
+            (even $5 is plenty), and grab your API key. It starts with <span className="font-mono text-[11px]">sk-ant-</span>.
+            If you don&apos;t know how, Google &quot;how to get a Claude API key&quot; — it&apos;s pretty easy.
+          </p>
+          <p className="text-[10px] text-muted-foreground/70 mb-3">
+            Important: this only works with a Claude (Anthropic) key, not OpenAI or other AI providers.
+            Your key is saved in your browser only — never sent to any server except Anthropic&apos;s API.
           </p>
           <div className="flex gap-2">
             <input
               type="password"
-              placeholder="sk-ant-..."
-              className="flex-1 px-3 py-2 rounded-lg bg-surface border border-border text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
+              placeholder="sk-ant-api03-..."
+              className="flex-1 px-3 py-2 rounded-lg bg-surface border border-border text-sm font-mono focus:outline-none focus:ring-1 focus:ring-primary/30"
               defaultValue={apiKey}
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
-                  saveApiKey((e.target as HTMLInputElement).value);
+                  const val = (e.target as HTMLInputElement).value.trim();
+                  if (val && !val.startsWith("sk-ant-")) {
+                    alert("That doesn't look like a Claude API key. It should start with sk-ant-. Make sure you're using a key from console.anthropic.com, not OpenAI or another provider.");
+                    return;
+                  }
+                  saveApiKey(val);
                 }
               }}
             />
@@ -199,7 +210,14 @@ export default function ScenarioPage({
                 const input = (e.target as HTMLElement)
                   .closest("div")
                   ?.querySelector("input");
-                if (input) saveApiKey(input.value);
+                if (input) {
+                  const val = input.value.trim();
+                  if (val && !val.startsWith("sk-ant-")) {
+                    alert("That doesn't look like a Claude API key. It should start with sk-ant-. Make sure you're using a key from console.anthropic.com, not OpenAI or another provider.");
+                    return;
+                  }
+                  saveApiKey(val);
+                }
               }}
             >
               Save

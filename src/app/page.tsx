@@ -111,7 +111,14 @@ export default function DashboardPage() {
 
         <motion.p
           variants={fadeUp}
-          className="text-center text-muted-foreground mt-6 max-w-lg mx-auto leading-relaxed"
+          className="text-center text-sm tracking-[0.15em] text-muted-foreground mt-4"
+        >
+          by yours truly, Julian &ldquo;the Great&rdquo; Laville
+        </motion.p>
+
+        <motion.p
+          variants={fadeUp}
+          className="text-center text-muted-foreground mt-4 max-w-lg mx-auto leading-relaxed"
         >
           SOSC 3360 — Charter of Rights and Freedoms, Indigenous Rights,
           and Constitutional History at York University

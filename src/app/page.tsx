@@ -14,6 +14,9 @@ import {
   ArrowRight,
   BookOpen,
   Clock,
+  ChevronDown,
+  ChevronUp,
+  Lightbulb,
 } from "lucide-react";
 import { getProgress } from "@/lib/storage";
 import type { UserProgress } from "@/types";
@@ -162,6 +165,9 @@ export default function DashboardPage() {
         </div>
       </motion.section>
 
+      {/* Test Tips */}
+      <TestTips />
+
       {/* Study Modes */}
       <motion.section
         variants={stagger}
@@ -304,5 +310,58 @@ export default function DashboardPage() {
         </p>
       </footer>
     </div>
+  );
+}
+
+function TestTips() {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <motion.section
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ delay: 0.5 }}
+    >
+      <button
+        onClick={() => setOpen((o) => !o)}
+        className="w-full p-5 rounded-2xl border border-warning/20 bg-warning/[0.03] flex items-center justify-between hover:bg-warning/[0.06] transition-colors"
+      >
+        <div className="flex items-center gap-3">
+          <Lightbulb className="w-5 h-5 text-warning" />
+          <span className="font-serif text-lg italic">Final Test Tips</span>
+        </div>
+        {open ? (
+          <ChevronUp className="w-4 h-4 text-muted-foreground" />
+        ) : (
+          <ChevronDown className="w-4 h-4 text-muted-foreground" />
+        )}
+      </button>
+      {open && (
+        <motion.div
+          initial={{ opacity: 0, height: 0 }}
+          animate={{ opacity: 1, height: "auto" }}
+          className="mt-2 p-5 rounded-2xl border border-border bg-surface space-y-3"
+        >
+          <div className="grid md:grid-cols-2 gap-4 text-sm text-muted-foreground leading-relaxed">
+            <div className="space-y-2">
+              <p className="text-[10px] uppercase tracking-[0.2em] text-foreground font-semibold mb-1">
+                Format
+              </p>
+              <p>— 45 minutes, handwritten, essay format. Bring a pen or pencil.</p>
+              <p>— Not graded on length. Graded on how well you critically apply course themes, readings, and concepts.</p>
+              <p>— You can write in first person. Not a formal essay.</p>
+            </div>
+            <div className="space-y-2">
+              <p className="text-[10px] uppercase tracking-[0.2em] text-foreground font-semibold mb-1">
+                Strategy
+              </p>
+              <p>— Reference authors, cases, and readings by name (no in-text citations or reference page needed).</p>
+              <p>— Be familiar with 1–2 readings from each week and at least 2–3 cases so you can write on at least one.</p>
+              <p>— Read the question carefully. Take a few minutes to plan before writing. Answer what is asked.</p>
+            </div>
+          </div>
+        </motion.div>
+      )}
+    </motion.section>
   );
 }

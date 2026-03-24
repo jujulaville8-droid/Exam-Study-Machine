@@ -14,7 +14,7 @@ export const charterSections: CharterSection[] = [
       "Prescribed by law: The limit must have a basis in law (statute, regulation, or common law rule) and must not be arbitrary or vague.",
     ],
     keyCases: [
-      "R v Oakes (1986) — Established the four-part Oakes test for s.1 justification; reverse onus provision in Narcotics Control Act failed the test.",
+      "R v Oakes (1986) — David Oakes was found with a small amount of cannabis and cash and charged with possession for the purpose of trafficking. Under s.8 of the Narcotic Control Act, possession created a 'reverse onus' presumption of trafficking. The SCC held this violated the presumption of innocence (s.11(d) Charter) and established the four-part Oakes test for s.1 justification. The reverse onus provision failed the proportionality analysis. This became the foundational case for all s.1 Charter justification analysis.",
       "R v Big M Drug Mart (1985) — Lord's Day Act had a religious purpose and could not be saved under s.1 because the objective itself was unconstitutional.",
       "Irwin Toys v Quebec (1989) — Quebec's ban on advertising directed at children was a justified limit on s.2(b) expression under s.1.",
       "Harper v Canada (2004) — Third-party election spending limits upheld as a reasonable limit on s.2(b) expression to promote electoral fairness.",
@@ -75,7 +75,7 @@ export const charterSections: CharterSection[] = [
       "s.3 Voting Rights Test (Sauvé): The right to vote is fundamental to democracy. Any restriction must be justified under s.1 with a particularly strong justification given the importance of the franchise.",
     ],
     keyCases: [
-      "Sauvé v Canada (No. 2) (2002) — Blanket disenfranchisement of prisoners serving sentences of two years or more violates s.3; the government failed to justify the limit under s.1.",
+      "Sauvé v Canada (No. 2) (2002) — Under the Canada Elections Act, prisoners serving 2+ years were disqualified from voting. The SCC (5-4) ruled this violated s.3. The government argued disenfranchisement promoted civic responsibility and respected the rule of law, but the Court held this punishment bore no connection to the crime committed and the negative effects far outweighed any positives. Taking away the right to vote denies prisoners the opportunity to learn democratic values — the opposite of the stated objective. Two dissenting judges sided with the government, arguing the impairment was minimal. A landmark case establishing that voting rights are fundamental and cannot be lightly set aside.",
     ],
     keyConcepts: [
       "universal suffrage",
@@ -122,7 +122,7 @@ export const charterSections: CharterSection[] = [
       "Principles of Fundamental Justice: (a) Arbitrariness — the law bears no rational connection to its objective; (b) Overbreadth — the law is broader than necessary to achieve its objective, capturing conduct with no connection to the legislative purpose; (c) Gross disproportionality — the effects of the law are so extreme as to be disproportionate to any legitimate government interest; (d) Vagueness — the law does not provide sufficient guidance for legal debate.",
     ],
     keyCases: [
-      "R v Morgentaler (1988) — Criminal abortion provisions violated s.7 because the procedural requirements for obtaining a therapeutic abortion were arbitrary and created delays that endangered women's security of the person.",
+      "R v Morgentaler (1988) — Under s.251 of the Criminal Code, abortions were illegal unless approved by a hospital's Therapeutic Abortion Committee (TAC). Henry Morgentaler, a licensed physician, performed abortions outside this system and was charged. The SCC struck down s.251 as violating s.7 security of the person — the TAC system was arbitrary, created dangerous delays, and varied widely between hospitals. Chief Justice Dickson wrote: 'Forcing a woman, by threat of criminal sanction, to carry a fetus to term unless she meets certain criteria unrelated to her own priorities and aspirations is a profound interference with a woman's body and thus a violation of security of the person.'",
       "Carter v Canada (2015) — Criminal prohibition on physician-assisted dying violated the s.7 rights of competent adults with grievous and irremediable medical conditions; the blanket prohibition was overbroad.",
       "Rodriguez v British Columbia (1993) — Criminal prohibition on assisted suicide upheld under s.1; the Court found s.7 was engaged but the limit was justified to protect vulnerable persons. Later effectively overruled by Carter.",
       "Canada (AG) v Bedford (2013) — Criminal laws around prostitution (bawdy houses, living on the avails, communicating) violated s.7 by imposing dangerous conditions on sex workers; laws were grossly disproportionate and overbroad.",
@@ -228,7 +228,7 @@ export const charterSections: CharterSection[] = [
       "s.11(b) Trial Within Reasonable Time (R v Jordan, 2016): Presumptive ceilings for trial delay — 18 months for cases in provincial court, 30 months for cases in superior court (or cases in provincial court that proceed to preliminary inquiry). If the ceiling is exceeded, delay is presumptively unreasonable and the Crown must show exceptional circumstances. Below the ceiling, the defence must show the delay is unreasonable.",
     ],
     keyCases: [
-      "R v Jordan (2016) — Established presumptive ceilings for s.11(b) trial delays, replacing the prior Morin framework. A case-changing decision that imposed strict timelines on the criminal justice system.",
+      "R v Jordan (2016) — Jordan was charged with drug offences in BC and his case took 45.9 months from charge to trial end. The SCC held this violated s.11(b) and replaced the old R v Morin framework (which balanced delay, reasons, waiver, and prejudice but was too complex and incentivized longer delays). Jordan established bright-line presumptive ceilings: 18 months for provincial court, 30 months for superior court. Delays caused by the defence are excluded from the count. This decision forced courts and prosecutors to manage cases more efficiently, and many cases have been stayed due to the new limits.",
     ],
     keyConcepts: [
       "presumption of innocence",
@@ -359,7 +359,7 @@ export const charterSections: CharterSection[] = [
       "s.33 Requirements: (1) The declaration must be express — the legislature must specifically invoke s.33. (2) It must identify which Charter provisions (s.2 or ss.7–15) the law operates notwithstanding. (3) The declaration expires after five years (sunset clause) and must be re-enacted to continue. (4) It applies only to s.2 and ss.7–15, not to democratic rights, mobility rights, or language rights.",
     ],
     keyCases: [
-      "Ford v Quebec (AG) (1988) — Quebec's blanket use of s.33 in all legislation was valid in form; the Court held that the override need not specify particular sections being overridden, though this was later seen as controversial. Established that s.33 has procedural but not substantive limitations.",
+      "Ford v Quebec (AG) (1988) — Valerie Ford and other business owners challenged Quebec's Charter of the French Language (Bill 101), which required all commercial signs to be exclusively in French. The SCC held this violated s.2(b) freedom of expression, confirming that commercial expression is protected and that language is closely connected to expression. The Court ruled that requiring French-dominant (but not French-exclusive) signs would be a justified s.1 limit. Quebec responded by invoking s.33 to override the decision — the most prominent historical use of the notwithstanding clause. The Court held the override need only contain an express declaration and expires after 5 years.",
       "Quebec Bill 21 (An Act Respecting the Laicity of the State, 2019) — Quebec invoked s.33 to shield its ban on religious symbols worn by certain public servants from Charter challenges under ss.2 and 7–15, sparking national debate about the scope of the notwithstanding clause.",
     ],
     keyConcepts: [

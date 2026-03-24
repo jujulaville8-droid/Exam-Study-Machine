@@ -1252,4 +1252,100 @@ export const quizQuestions: QuizQuestion[] = [
     sectionId: "hrc",
     difficulty: "hard",
   },
+  {
+    id: "s15-7",
+    question:
+      "In Sauvé v Canada (No. 2) (2002), the government argued that disenfranchising prisoners serving 2+ years promoted civic responsibility. Why did the Supreme Court reject this argument?",
+    options: [
+      "Because voting is not a fundamental right under the Charter",
+      "Because the punishment bore no connection to the crime committed and the negative effects outweighed any positives",
+      "Because only provincial governments can restrict voting rights",
+      "Because the law did not comply with the formal requirements of the Canada Elections Act",
+    ],
+    correctIndex: 1,
+    explanation:
+      "The SCC (5-4) held that denying prisoners the right to vote bore no rational connection to the crimes committed. The right to vote is fundamental to democracy and cannot be lightly set aside. Taking away this right would deny prisoners the opportunity to learn democratic values and social responsibility — the opposite of the government's stated objective.",
+    sectionId: "conventions",
+    difficulty: "medium",
+  },
+  {
+    id: "s2-7",
+    question:
+      "In Ford v Quebec (1988), what did the Supreme Court rule about Quebec's requirement that all commercial signs be exclusively in French?",
+    options: [
+      "The law was constitutional because protecting French is a pressing and substantial objective",
+      "Commercial expression is not protected under s.2(b) of the Charter",
+      "The law violated s.2(b) — requiring French-dominant signs would be justified but French-exclusive was too far",
+      "The law was valid because Quebec invoked s.33 before the case was heard",
+    ],
+    correctIndex: 2,
+    explanation:
+      "The SCC confirmed commercial expression (advertising, signs) is protected under s.2(b) and that language is closely connected to expression. While protecting French is a legitimate objective, banning all other languages went too far. Requiring French to be dominant but not exclusive would likely be a reasonable s.1 limit. Quebec subsequently invoked s.33 to override the decision.",
+    sectionId: "s2",
+    difficulty: "medium",
+  },
+  {
+    id: "s15-8",
+    question:
+      "What was the constitutional significance of Andrews v Law Society of BC (1989)?",
+    options: [
+      "It established that the Charter applies to private actors",
+      "It was the first SCC case to interpret s.15, recognized citizenship as an analogous ground, and rejected formal equality in favour of substantive equality",
+      "It created the Oakes test for s.1 justification",
+      "It established the duty to consult with Indigenous peoples",
+    ],
+    correctIndex: 1,
+    explanation:
+      "Andrews was the first SCC decision to interpret s.15. Mark Andrews, a British citizen, challenged the citizenship requirement for admission to the BC bar. The Court recognized citizenship as an analogous ground (not listed in s.15 but deserving similar protection), rejected the 'similarly situated' formal equality test, and adopted a substantive equality approach focused on whether laws create or reinforce disadvantage.",
+    sectionId: "s15",
+    difficulty: "medium",
+  },
+  {
+    id: "s9-14-7",
+    question:
+      "The Supreme Court replaced the R v Morin framework for assessing trial delays with bright-line ceilings in R v Jordan (2016). Why was the Morin test abandoned?",
+    options: [
+      "Because the Morin test was too strict and caused too many cases to be thrown out",
+      "Because the Morin test was too complex and unpredictable, incentivizing longer delays since the accused bore the burden of proving prejudice",
+      "Because Parliament passed legislation mandating fixed timelines",
+      "Because the Morin test only applied to provincial courts, not superior courts",
+    ],
+    correctIndex: 1,
+    explanation:
+      "The Morin framework balanced length of delay, reasons, waiver, and prejudice — but was so complex that it incentivized longer delays and placed the burden on the accused to prove prejudice. Jordan's case itself took 45.9 months. The SCC replaced Morin with presumptive ceilings (18 months provincial, 30 months superior court), shifting the burden to the Crown once ceilings are exceeded. Defence-caused delays are excluded from the count.",
+    sectionId: "s9-14",
+    difficulty: "hard",
+  },
+  {
+    id: "conventions-7",
+    question:
+      "Under the Clarity Act (2000), what requirements must be met before a province can negotiate secession from Canada?",
+    options: [
+      "A simple majority vote in a provincial referendum is sufficient to begin negotiations",
+      "The House of Commons must determine the question is clear and the result represents a clear majority, Indigenous peoples must be consulted, and a constitutional amendment is required",
+      "The province must obtain permission from the Supreme Court of Canada",
+      "Two-thirds of provincial legislatures must approve the secession",
+    ],
+    correctIndex: 1,
+    explanation:
+      "The Clarity Act, passed after Quebec's 1995 referendum, requires the House of Commons to assess whether the referendum question is clear and whether the result represents a genuine mandate (more than bare 51%). Indigenous peoples must be consulted, especially those whose treaties cross provincial boundaries. Until all requirements are met — including a constitutional amendment with federal, Senate, and provincial legislative support — the Constitution remains in effect.",
+    sectionId: "conventions",
+    difficulty: "hard",
+  },
+  {
+    id: "s33-7",
+    question:
+      "Which Charter provision is relevant to challenging Quebec's Bill 21 even though s.33 was invoked, and why?",
+    options: [
+      "Section 1, because all rights have reasonable limits",
+      "Section 24, because courts can always exclude evidence",
+      "Section 28, because it guarantees gender equality and cannot be overridden by s.33",
+      "Section 35, because Indigenous rights are always protected",
+    ],
+    correctIndex: 2,
+    explanation:
+      "Section 28 guarantees that Charter rights are guaranteed equally to male and female persons. Critically, s.28 is NOT listed among the provisions that s.33 can override (s.33 only covers ss.2 and 7-15). Since Bill 21's religious symbols ban disproportionately affects Muslim women, s.28's gender equality guarantee provides a potential avenue for challenge that Quebec's s.33 invocation cannot shield against.",
+    sectionId: "s33",
+    difficulty: "hard",
+  },
 ];

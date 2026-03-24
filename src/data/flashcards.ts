@@ -164,8 +164,8 @@ export const flashcards: Flashcard[] = [
   },
   {
     id: "test-02",
-    front: "Section 7 Two-Step Analysis",
-    back: "Step 1: The claimant must establish that the impugned law deprives them of life, liberty, or security of the person. Step 2: If a deprivation is found, the claimant must show it is not in accordance with the principles of fundamental justice. These principles include the prohibition against arbitrariness (no rational connection to objective), overbreadth (captures conduct with no connection to the objective), and gross disproportionality (effects totally out of proportion to the objective).",
+    front: "Section 7 — Principles of Fundamental Justice",
+    back: "Section 7 protects life, liberty, and security of the person and the right not to be deprived thereof except in accordance with the principles of fundamental justice. These principles include: (1) Arbitrariness — the law has no rational connection to its objective; (2) Overbreadth — the law captures conduct with no connection to the objective; (3) Gross disproportionality — the law's effects are totally out of proportion to the objective. The claimant must show a deprivation of a protected interest that is not in accordance with these principles.",
     category: "test",
     sectionId: "s7",
   },

@@ -14,7 +14,7 @@ export async function POST(req: NextRequest) {
 
 Grade on these 5 criteria (total 100 points):
 1. Charter Section Identification (30 points): Did the student correctly identify which Charter section(s) apply?
-2. Legal Test Application (25 points): Did they apply the relevant legal test (e.g., Oakes test for s.1, two-step test for s.7)?
+2. Legal Test Application (25 points): Did they apply the relevant legal test (e.g., Oakes test for s.1, principles of fundamental justice for s.7)?
 3. Key Concept Usage (20 points): Did they use relevant constitutional terminology and course concepts?
 4. Critical Engagement (15 points): Did they provide balanced analysis with counterarguments, structured reasoning, and a conclusion?
 5. Case Law References (10 points): Did they reference relevant landmark cases?

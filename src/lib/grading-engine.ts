@@ -112,7 +112,7 @@ export function gradeResponse(scenario: Scenario, response: string): GradingResu
   else improvements.push("Work on identifying the correct Charter section(s) that apply to the scenario.");
 
   if (testScore >= testMax * 0.7) strengths.push("Good application of legal tests.");
-  else improvements.push("Practice applying legal tests (e.g., Oakes test, s.7 two-step analysis) to scenarios.");
+  else improvements.push("Practice applying legal tests (e.g., Oakes test, principles of fundamental justice) to scenarios.");
 
   if (conceptScore >= conceptMax * 0.7) strengths.push("Effective use of constitutional terminology.");
   else improvements.push("Incorporate more course-specific terms and concepts into your analysis.");

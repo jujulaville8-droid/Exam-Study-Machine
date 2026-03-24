@@ -82,7 +82,8 @@ export function FlashCardDeck({
       </div>
 
       <FlashCard
-        front={current.front}
+        front={current.category === "section" ? current.front.split(" — ")[0] : current.front}
+        title={current.category === "section" ? current.front.split(" — ").slice(1).join(" — ") : undefined}
         back={current.back}
         isFlipped={isFlipped}
         onFlip={() => setIsFlipped((f) => !f)}

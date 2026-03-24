@@ -5,11 +5,13 @@ import { motion } from "framer-motion";
 export function FlashCard({
   front,
   back,
+  title,
   isFlipped,
   onFlip,
 }: {
   front: string;
   back: string;
+  title?: string;
   isFlipped: boolean;
   onFlip: () => void;
 }) {
@@ -49,6 +51,11 @@ export function FlashCard({
           <p className="text-[10px] uppercase tracking-[0.25em] text-primary mb-4">
             Answer
           </p>
+          {title && (
+            <p className="font-serif text-xl italic leading-snug mb-4">
+              {title}
+            </p>
+          )}
           <p className="text-sm leading-relaxed whitespace-pre-line max-w-md">
             {back}
           </p>

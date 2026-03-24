@@ -181,7 +181,7 @@ export default function ScenarioPage({
             To use AI-powered grading, you need a <span className="text-foreground font-medium">Claude API key</span> from Anthropic.
             Go to <span className="text-primary">console.anthropic.com</span>, create an account, load up some credit
             (even $5 is plenty), and grab your API key. It starts with <span className="font-mono text-[11px]">sk-ant-</span>.
-            If you don&apos;t know how, Google &quot;how to get a Claude API key&quot; — it&apos;s pretty easy.
+            If you don&apos;t know how, Google &quot;how to get a Claude API key&quot; — it&apos;s pretty easy (unless ur Dana).
           </p>
           <p className="text-[10px] text-muted-foreground/70 mb-3">
             Important: this only works with a Claude (Anthropic) key, not OpenAI or other AI providers.

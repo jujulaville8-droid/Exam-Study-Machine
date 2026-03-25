@@ -9,6 +9,7 @@ import {
   Scale,
   Brain,
   Layers,
+  GitMerge,
   Flame,
   Target,
   ArrowRight,
@@ -61,6 +62,15 @@ const features = [
     description:
       "Study Charter sections, legal tests, landmark cases, and constitutional concepts with spaced repetition.",
     tag: "90+ cards",
+  },
+  {
+    href: "/match",
+    icon: GitMerge,
+    title: "Match",
+    subtitle: "Connect & Recall",
+    description:
+      "Match each Charter section number to its title and definition. A fast way to drill section recognition.",
+    tag: "21 sections",
   },
 ];
 

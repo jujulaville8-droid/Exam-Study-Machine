@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Scale, Brain, Layers, LayoutDashboard } from "lucide-react";
+import { Scale, Brain, Layers, LayoutDashboard, GitMerge } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
 import { cn } from "@/lib/utils";
 
@@ -11,6 +11,7 @@ const navItems = [
   { href: "/scenarios", label: "Scenarios", icon: Scale },
   { href: "/quiz", label: "Quiz", icon: Brain },
   { href: "/flashcards", label: "Flashcards", icon: Layers },
+  { href: "/match", label: "Match", icon: GitMerge },
 ];
 
 export function Navbar() {

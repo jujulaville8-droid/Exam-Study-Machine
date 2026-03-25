@@ -124,3 +124,17 @@ export interface DetailedCase {
   notableQuotes: string[];
   dissent?: string;
 }
+
+export interface ClozeCard {
+  id: string;
+  template: string;
+  blanks: ClozeBlank[];
+  category: "test" | "case" | "section" | "concept";
+  themeId?: ThemeId;
+}
+
+export interface ClozeBlank {
+  answer: string;
+  hint?: string;
+  acceptAlternatives?: string[];
+}

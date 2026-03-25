@@ -2,16 +2,17 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Scale, Brain, Layers, LayoutDashboard, GitMerge, BookOpen } from "lucide-react";
+import { Scale, Brain, Layers, LayoutDashboard, GitMerge, BookOpen, Zap } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
 import { cn } from "@/lib/utils";
 
 const navItems = [
   { href: "/", label: "Home", icon: LayoutDashboard },
   { href: "/themes", label: "Themes", icon: BookOpen },
+  { href: "/review", label: "Review", icon: Zap },
   { href: "/scenarios", label: "Scenarios", icon: Scale },
   { href: "/quiz", label: "Quiz", icon: Brain },
-  { href: "/flashcards", label: "Flashcards", icon: Layers },
+  { href: "/flashcards", label: "Cards", icon: Layers },
   { href: "/match", label: "Match", icon: GitMerge },
 ];
 

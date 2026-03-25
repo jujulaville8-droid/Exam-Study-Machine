@@ -19,6 +19,8 @@ import {
   ChevronUp,
   Lightbulb,
   Archive,
+  Zap,
+  PenLine,
 } from "lucide-react";
 import { testThemes, getThemeContentCounts, getAdditionalContentCounts } from "@/data/themes";
 import { getProgress } from "@/lib/storage";
@@ -219,6 +221,79 @@ export default function DashboardPage() {
                     {feature.description}
                   </p>
 
+                  <div className="mt-6 flex items-center gap-2 text-xs text-primary opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
+                    Begin
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </div>
+                </Card>
+              </Link>
+            </motion.div>
+          ))}
+        </div>
+      </motion.section>
+
+      {/* Memorization Modes */}
+      <motion.section
+        variants={stagger}
+        initial="hidden"
+        animate="show"
+        className="space-y-6"
+      >
+        <motion.div variants={fadeUp} className="flex items-end justify-between">
+          <div>
+            <p className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground mb-1">
+              Retention
+            </p>
+            <h2 className="font-serif text-3xl italic">Memorization Modes</h2>
+          </div>
+          <div className="h-px flex-1 ml-8 bg-border self-center" />
+        </motion.div>
+
+        <div className="grid gap-5 md:grid-cols-3">
+          {[
+            {
+              href: "/review",
+              icon: Zap,
+              title: "Active Recall",
+              subtitle: "Spaced Repetition",
+              description: "Cards appear at optimal intervals. Rate your recall to schedule reviews — the #1 proven technique for long-term retention.",
+              tag: "SM-2 Algorithm",
+            },
+            {
+              href: "/rapid-fire",
+              icon: Flame,
+              title: "Case Rapid Fire",
+              subtitle: "Timed Recall",
+              description: "See a case name, recall key principles before time runs out. Build streaks for bonus points. Gamified retrieval practice.",
+              tag: "16 cases",
+            },
+            {
+              href: "/cloze",
+              icon: PenLine,
+              title: "Fill in the Blank",
+              subtitle: "Generate & Recall",
+              description: "Complete missing terms from memory. Producing answers is far more effective than recognizing them in a list.",
+              tag: "Cloze deletion",
+            },
+          ].map((feature) => (
+            <motion.div key={feature.href} variants={fadeUp}>
+              <Link href={feature.href} className="group block h-full">
+                <Card className="h-full relative overflow-hidden">
+                  <div className="flex items-center justify-between mb-6">
+                    <div className="w-11 h-11 rounded-full border border-border flex items-center justify-center group-hover:border-primary/40 group-hover:bg-primary/5 transition-all duration-300">
+                      <feature.icon className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                    </div>
+                    <Badge variant="outline">{feature.tag}</Badge>
+                  </div>
+                  <p className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground mb-1">
+                    {feature.subtitle}
+                  </p>
+                  <h3 className="font-serif text-xl italic mb-3 group-hover:text-primary transition-colors">
+                    {feature.title}
+                  </h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    {feature.description}
+                  </p>
                   <div className="mt-6 flex items-center gap-2 text-xs text-primary opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
                     Begin
                     <ArrowRight className="w-3.5 h-3.5" />

@@ -153,6 +153,10 @@ export function getScenariosByTheme(themeId: ThemeId): Scenario[] {
   return scenarios.filter((s) => s.id.startsWith(theme.scenarioPrefix));
 }
 
+export function getCaseCardsByTheme(themeId: ThemeId): Flashcard[] {
+  return getFlashcardsByTheme(themeId).filter((c) => c.category === "case");
+}
+
 export function getCharterSectionsByTheme(themeId: ThemeId): CharterSection[] {
   const theme = getThemeById(themeId);
   if (!theme) return [];

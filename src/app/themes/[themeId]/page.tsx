@@ -20,6 +20,7 @@ import {
   Play,
   ChevronDown,
   ChevronUp,
+  Gavel,
 } from "lucide-react";
 import {
   testThemes,
@@ -27,6 +28,7 @@ import {
   getQuizQuestionsByTheme,
   getScenariosByTheme,
   getCharterSectionsByTheme,
+  getCaseCardsByTheme,
 } from "@/data/themes";
 import { shuffleArray } from "@/lib/spaced-repetition";
 import { saveQuizAttempt } from "@/lib/storage";
@@ -35,6 +37,7 @@ import type { ThemeId, QuizQuestion as QuizQuestionType } from "@/types";
 
 const tabs = [
   { key: "overview", label: "Overview", icon: BookOpen },
+  { key: "cases", label: "Cases", icon: Gavel },
   { key: "flashcards", label: "Flashcards", icon: Layers },
   { key: "quiz", label: "Quiz", icon: Brain },
   { key: "scenarios", label: "Scenarios", icon: Scale },
@@ -70,6 +73,10 @@ export default function ThemePage() {
   );
   const charterSections = useMemo(
     () => (theme ? getCharterSectionsByTheme(theme.id as ThemeId) : []),
+    [theme]
+  );
+  const caseCards = useMemo(
+    () => (theme ? getCaseCardsByTheme(theme.id as ThemeId) : []),
     [theme]
   );
 
@@ -140,13 +147,13 @@ export default function ThemePage() {
 
         {/* Content counts */}
         <div className="flex gap-3 mt-4 text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+          <span>{caseCards.length} cases</span>
+          <span className="text-border">·</span>
           <span>{flashcards.length} cards</span>
           <span className="text-border">·</span>
           <span>{allQuizQs.length} questions</span>
           <span className="text-border">·</span>
           <span>{scenarios.length} scenarios</span>
-          <span className="text-border">·</span>
-          <span>{charterSections.length} sections</span>
         </div>
       </motion.div>
 
@@ -183,6 +190,9 @@ export default function ThemePage() {
         >
           {activeTab === "overview" && (
             <OverviewTab charterSections={charterSections} />
+          )}
+          {activeTab === "cases" && (
+            <CasesTab cases={caseCards} />
           )}
           {activeTab === "flashcards" && (
             <FlashcardsTab cards={flashcards} themeName={theme.title} />
@@ -309,6 +319,61 @@ function OverviewTab({
                   </div>
                 </div>
               )}
+            </motion.div>
+          )}
+        </Card>
+      ))}
+    </div>
+  );
+}
+
+// ============================================================
+// Cases Tab
+// ============================================================
+
+function CasesTab({ cases }: { cases: ReturnType<typeof getCaseCardsByTheme> }) {
+  const [expandedId, setExpandedId] = useState<string | null>(null);
+
+  if (cases.length === 0) {
+    return (
+      <div className="text-center py-12">
+        <Gavel className="w-8 h-8 mx-auto text-muted-foreground mb-3" />
+        <p className="text-sm text-muted-foreground">No cases for this theme yet.</p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="space-y-3">
+      <p className="text-xs text-muted-foreground mb-4">
+        {cases.length} landmark cases relevant to this theme. Click to expand details.
+      </p>
+      {cases.map((c) => (
+        <Card key={c.id} className="overflow-hidden">
+          <button
+            onClick={() => setExpandedId(expandedId === c.id ? null : c.id)}
+            className="w-full text-left flex items-center justify-between"
+          >
+            <div className="flex items-center gap-3">
+              <Gavel className="w-4 h-4 text-warning shrink-0" />
+              <h3 className="font-serif text-base italic">{c.front}</h3>
+            </div>
+            {expandedId === c.id ? (
+              <ChevronUp className="w-4 h-4 text-muted-foreground shrink-0" />
+            ) : (
+              <ChevronDown className="w-4 h-4 text-muted-foreground shrink-0" />
+            )}
+          </button>
+
+          {expandedId === c.id && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              className="mt-4 pl-7"
+            >
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                {c.back}
+              </p>
             </motion.div>
           )}
         </Card>

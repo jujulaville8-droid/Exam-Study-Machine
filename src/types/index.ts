@@ -92,3 +92,21 @@ export interface QuizAttempt {
   correctAnswers: number;
   topics: string[];
 }
+
+export type ThemeId =
+  | "s1-framework"
+  | "freedoms"
+  | "s33-override"
+  | "indigenous"
+  | "equality"
+  | "privacy-police";
+
+export interface TestTheme {
+  id: ThemeId;
+  number: number;
+  title: string;
+  subtitle: string;
+  description: string;
+  sectionIds: string[];
+  scenarioPrefix: string;
+}

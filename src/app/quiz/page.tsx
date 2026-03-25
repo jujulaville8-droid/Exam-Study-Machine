@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/Badge";
 import { ProgressBar } from "@/components/ui/ProgressBar";
 import { Brain, Play } from "lucide-react";
 import { quizQuestions } from "@/data/quiz-questions";
+import { testThemes, getQuizQuestionsByTheme, getAdditionalQuizQuestions } from "@/data/themes";
 import { shuffleArray } from "@/lib/spaced-repetition";
 import { saveQuizAttempt } from "@/lib/storage";
 import { cn } from "@/lib/utils";
@@ -43,22 +44,23 @@ export default function QuizPage() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [correct, setCorrect] = useState(0);
 
-  const availableCount = useMemo(() => {
-    if (topic === "all") return quizQuestions.length;
-    return quizQuestions.filter((q) => q.sectionId === topic).length;
-  }, [topic]);
+  const getPoolForTopic = useCallback((t: string): QuizQuestionType[] => {
+    if (t === "all") return quizQuestions;
+    if (t === "additional") return getAdditionalQuizQuestions();
+    const theme = testThemes.find((th) => th.id === t);
+    if (theme) return getQuizQuestionsByTheme(theme.id);
+    return quizQuestions.filter((q) => q.sectionId === t);
+  }, []);
+
+  const availableCount = useMemo(() => getPoolForTopic(topic).length, [topic, getPoolForTopic]);
 
   const startQuiz = useCallback(() => {
-    let pool =
-      topic === "all"
-        ? quizQuestions
-        : quizQuestions.filter((q) => q.sectionId === topic);
-    pool = shuffleArray(pool).slice(0, questionCount);
+    const pool = shuffleArray(getPoolForTopic(topic)).slice(0, questionCount);
     setQuestions(pool);
     setCurrentIndex(0);
     setCorrect(0);
     setPhase("quiz");
-  }, [topic, questionCount]);
+  }, [topic, questionCount, getPoolForTopic]);
 
   const handleAnswer = useCallback(
     (isCorrect: boolean) => {
@@ -138,10 +140,52 @@ export default function QuizPage() {
       <div className="space-y-6">
         <div>
           <p className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground font-semibold mb-3">
-            Topic
+            Test Themes
+          </p>
+          <div className="flex flex-wrap gap-1.5 mb-4">
+            <button
+              onClick={() => setTopic("all")}
+              className={cn(
+                "px-3 py-1.5 rounded-lg text-xs tracking-wide transition-all duration-200",
+                topic === "all"
+                  ? "bg-primary text-primary-foreground shadow-sm shadow-primary/20 font-medium"
+                  : "text-muted-foreground hover:text-foreground border border-transparent hover:border-border"
+              )}
+            >
+              All Topics
+            </button>
+            {testThemes.map((theme) => (
+              <button
+                key={theme.id}
+                onClick={() => setTopic(theme.id)}
+                className={cn(
+                  "px-3 py-1.5 rounded-lg text-xs tracking-wide transition-all duration-200",
+                  topic === theme.id
+                    ? "bg-primary text-primary-foreground shadow-sm shadow-primary/20 font-medium"
+                    : "text-muted-foreground hover:text-foreground border border-transparent hover:border-border"
+                )}
+              >
+                {theme.number}. {theme.title.split(" ").slice(0, 2).join(" ")}
+              </button>
+            ))}
+            <button
+              onClick={() => setTopic("additional")}
+              className={cn(
+                "px-3 py-1.5 rounded-lg text-xs tracking-wide transition-all duration-200",
+                topic === "additional"
+                  ? "bg-primary text-primary-foreground shadow-sm shadow-primary/20 font-medium"
+                  : "text-muted-foreground hover:text-foreground border border-transparent hover:border-border"
+              )}
+            >
+              Additional
+            </button>
+          </div>
+
+          <p className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground font-semibold mb-3">
+            By Section
           </p>
           <div className="flex flex-wrap gap-1.5">
-            {topicOptions.map((t) => (
+            {topicOptions.filter(t => t.key !== "all").map((t) => (
               <button
                 key={t.key}
                 onClick={() => setTopic(t.key)}

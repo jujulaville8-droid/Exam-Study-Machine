@@ -2,12 +2,13 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Scale, Brain, Layers, LayoutDashboard, GitMerge } from "lucide-react";
+import { Scale, Brain, Layers, LayoutDashboard, GitMerge, BookOpen } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
 import { cn } from "@/lib/utils";
 
 const navItems = [
   { href: "/", label: "Home", icon: LayoutDashboard },
+  { href: "/themes", label: "Themes", icon: BookOpen },
   { href: "/scenarios", label: "Scenarios", icon: Scale },
   { href: "/quiz", label: "Quiz", icon: Brain },
   { href: "/flashcards", label: "Flashcards", icon: Layers },
@@ -78,7 +79,7 @@ export function Navbar() {
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  "flex flex-col items-center gap-1 px-4 py-2 text-[10px] font-medium uppercase tracking-wider transition-colors",
+                  "flex flex-col items-center gap-1 px-2.5 py-2 text-[10px] font-medium uppercase tracking-wider transition-colors",
                   active ? "text-primary" : "text-muted-foreground"
                 )}
               >

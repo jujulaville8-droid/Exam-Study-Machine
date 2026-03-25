@@ -18,7 +18,9 @@ import {
   ChevronDown,
   ChevronUp,
   Lightbulb,
+  Archive,
 } from "lucide-react";
+import { testThemes, getThemeContentCounts, getAdditionalContentCounts } from "@/data/themes";
 import { getProgress } from "@/lib/storage";
 import type { UserProgress } from "@/types";
 
@@ -228,7 +230,7 @@ export default function DashboardPage() {
         </div>
       </motion.section>
 
-      {/* Topics Grid */}
+      {/* Test Themes */}
       <motion.section
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -238,37 +240,42 @@ export default function DashboardPage() {
         <div className="flex items-end justify-between">
           <div>
             <p className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground mb-1">
-              Coverage
+              March 30 Final
             </p>
-            <h2 className="font-serif text-3xl italic">Key Topics</h2>
+            <h2 className="font-serif text-3xl italic">Test Themes</h2>
           </div>
           <div className="h-px flex-1 ml-8 bg-border self-center" />
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-          {[
-            { topic: "s.1 Reasonable Limits", section: "Oakes Test" },
-            { topic: "s.2 Fundamental Freedoms", section: "Expression · Religion" },
-            { topic: "s.7 Life, Liberty, Security", section: "Fundamental Justice" },
-            { topic: "s.8 Search & Seizure", section: "Privacy Rights" },
-            { topic: "s.11(b) Trial Delays", section: "R v Jordan" },
-            { topic: "s.15 Equality Rights", section: "Substantive Equality" },
-            { topic: "s.25 & s.35 Indigenous", section: "Aboriginal Rights" },
-            { topic: "s.33 Notwithstanding", section: "Bill 21 · Ford v QC" },
-          ].map(({ topic, section }) => (
-            <div
-              key={topic}
-              className="p-4 rounded-xl border border-border hover:border-primary/20 transition-colors group cursor-default"
-            >
-              <p className="text-sm font-medium group-hover:text-primary transition-colors">
-                {topic}
-              </p>
-              <p className="text-[10px] text-muted-foreground mt-1 uppercase tracking-wider">
-                {section}
-              </p>
-            </div>
-          ))}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          {testThemes.map((theme) => {
+            const counts = getThemeContentCounts(theme.id);
+            return (
+              <Link key={theme.id} href={`/themes/${theme.id}`} className="group block">
+                <div className="p-4 rounded-xl border border-border hover:border-primary/20 transition-colors">
+                  <div className="flex items-center justify-between mb-1">
+                    <p className="text-sm font-medium group-hover:text-primary transition-colors">
+                      <span className="text-muted-foreground mr-1.5">{theme.number}.</span>
+                      {theme.title}
+                    </p>
+                    <ArrowRight className="w-3.5 h-3.5 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
+                  </div>
+                  <p className="text-[10px] text-muted-foreground uppercase tracking-wider">
+                    {theme.subtitle} · {counts.flashcards} cards · {counts.quizQuestions} Qs
+                  </p>
+                </div>
+              </Link>
+            );
+          })}
         </div>
+
+        <Link
+          href="/themes/additional"
+          className="group flex items-center gap-2 text-xs text-muted-foreground hover:text-foreground transition-colors"
+        >
+          <Archive className="w-3.5 h-3.5" />
+          Additional Learning ({getAdditionalContentCounts().flashcards} cards)
+        </Link>
       </motion.section>
 
       {/* Recent Activity */}

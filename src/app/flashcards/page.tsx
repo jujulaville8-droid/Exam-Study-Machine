@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { FlashCardDeck } from "@/components/flashcards/FlashCardDeck";
 import { Layers } from "lucide-react";
 import { flashcards } from "@/data/flashcards";
+import { testThemes, getFlashcardsByTheme, getAdditionalFlashcards } from "@/data/themes";
 import { cn } from "@/lib/utils";
 
 const categories = [
@@ -16,12 +17,27 @@ const categories = [
 ] as const;
 
 export default function FlashcardsPage() {
+  const [activeTheme, setActiveTheme] = useState<string>("all");
   const [activeCategory, setActiveCategory] = useState<string>("all");
 
+  const themeFiltered = useMemo(() => {
+    if (activeTheme === "all") return flashcards;
+    if (activeTheme === "additional") return getAdditionalFlashcards();
+    const theme = testThemes.find((t) => t.id === activeTheme);
+    if (theme) return getFlashcardsByTheme(theme.id);
+    return flashcards;
+  }, [activeTheme]);
+
   const filtered = useMemo(() => {
-    if (activeCategory === "all") return flashcards;
-    return flashcards.filter((c) => c.category === activeCategory);
-  }, [activeCategory]);
+    if (activeCategory === "all") return themeFiltered;
+    return themeFiltered.filter((c) => c.category === activeCategory);
+  }, [activeCategory, themeFiltered]);
+
+  const activeLabel = activeTheme === "all"
+    ? (categories.find((c) => c.key === activeCategory)?.label ?? "All")
+    : activeTheme === "additional"
+      ? "Additional Learning"
+      : testThemes.find((t) => t.id === activeTheme)?.title ?? "All";
 
   return (
     <div className="max-w-2xl mx-auto px-6 py-8 space-y-10">
@@ -39,12 +55,57 @@ export default function FlashcardsPage() {
         </p>
       </motion.div>
 
+      {/* Theme Filter */}
+      <div className="space-y-3">
+        <p className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground font-semibold text-center">
+          Theme
+        </p>
+        <div className="flex flex-wrap justify-center gap-1.5">
+          <button
+            onClick={() => { setActiveTheme("all"); setActiveCategory("all"); }}
+            className={cn(
+              "px-3 py-1.5 rounded-lg text-xs tracking-wide transition-all duration-200",
+              activeTheme === "all"
+                ? "bg-primary text-primary-foreground shadow-sm shadow-primary/20 font-medium"
+                : "text-muted-foreground hover:text-foreground border border-transparent hover:border-border"
+            )}
+          >
+            All
+          </button>
+          {testThemes.map((theme) => (
+            <button
+              key={theme.id}
+              onClick={() => { setActiveTheme(theme.id); setActiveCategory("all"); }}
+              className={cn(
+                "px-3 py-1.5 rounded-lg text-xs tracking-wide transition-all duration-200",
+                activeTheme === theme.id
+                  ? "bg-primary text-primary-foreground shadow-sm shadow-primary/20 font-medium"
+                  : "text-muted-foreground hover:text-foreground border border-transparent hover:border-border"
+              )}
+            >
+              {theme.number}. {theme.title.split(" ").slice(0, 2).join(" ")}
+            </button>
+          ))}
+          <button
+            onClick={() => { setActiveTheme("additional"); setActiveCategory("all"); }}
+            className={cn(
+              "px-3 py-1.5 rounded-lg text-xs tracking-wide transition-all duration-200",
+              activeTheme === "additional"
+                ? "bg-primary text-primary-foreground shadow-sm shadow-primary/20 font-medium"
+                : "text-muted-foreground hover:text-foreground border border-transparent hover:border-border"
+            )}
+          >
+            Additional
+          </button>
+        </div>
+      </div>
+
       {/* Category Filter */}
       <div className="flex flex-wrap justify-center gap-1.5">
         {categories.map((cat) => {
           const count = cat.key === "all"
-            ? flashcards.length
-            : flashcards.filter((c) => c.category === cat.key).length;
+            ? themeFiltered.length
+            : themeFiltered.filter((c) => c.category === cat.key).length;
           return (
             <button
               key={cat.key}
@@ -63,10 +124,7 @@ export default function FlashcardsPage() {
         })}
       </div>
 
-      <FlashCardDeck
-        cards={filtered}
-        category={categories.find((c) => c.key === activeCategory)?.label ?? "All"}
-      />
+      <FlashCardDeck cards={filtered} category={activeLabel} />
     </div>
   );
 }

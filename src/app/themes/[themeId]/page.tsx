@@ -28,12 +28,12 @@ import {
   getQuizQuestionsByTheme,
   getScenariosByTheme,
   getCharterSectionsByTheme,
-  getCaseCardsByTheme,
+  getDetailedCasesByTheme,
 } from "@/data/themes";
 import { shuffleArray } from "@/lib/spaced-repetition";
 import { saveQuizAttempt } from "@/lib/storage";
 import { cn } from "@/lib/utils";
-import type { ThemeId, QuizQuestion as QuizQuestionType } from "@/types";
+import type { ThemeId, QuizQuestion as QuizQuestionType, DetailedCase } from "@/types";
 
 const tabs = [
   { key: "overview", label: "Overview", icon: BookOpen },
@@ -75,8 +75,8 @@ export default function ThemePage() {
     () => (theme ? getCharterSectionsByTheme(theme.id as ThemeId) : []),
     [theme]
   );
-  const caseCards = useMemo(
-    () => (theme ? getCaseCardsByTheme(theme.id as ThemeId) : []),
+  const detailedCases = useMemo(
+    () => (theme ? getDetailedCasesByTheme(theme.id as ThemeId) : []),
     [theme]
   );
 
@@ -147,7 +147,7 @@ export default function ThemePage() {
 
         {/* Content counts */}
         <div className="flex gap-3 mt-4 text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
-          <span>{caseCards.length} cases</span>
+          <span>{detailedCases.length} cases</span>
           <span className="text-border">·</span>
           <span>{flashcards.length} cards</span>
           <span className="text-border">·</span>
@@ -192,7 +192,7 @@ export default function ThemePage() {
             <OverviewTab charterSections={charterSections} />
           )}
           {activeTab === "cases" && (
-            <CasesTab cases={caseCards} />
+            <CasesTab cases={detailedCases} />
           )}
           {activeTab === "flashcards" && (
             <FlashcardsTab cards={flashcards} themeName={theme.title} />
@@ -331,22 +331,22 @@ function OverviewTab({
 // Cases Tab
 // ============================================================
 
-function CasesTab({ cases }: { cases: ReturnType<typeof getCaseCardsByTheme> }) {
+function CasesTab({ cases }: { cases: DetailedCase[] }) {
   const [expandedId, setExpandedId] = useState<string | null>(null);
 
   if (cases.length === 0) {
     return (
       <div className="text-center py-12">
         <Gavel className="w-8 h-8 mx-auto text-muted-foreground mb-3" />
-        <p className="text-sm text-muted-foreground">No cases for this theme yet.</p>
+        <p className="text-sm text-muted-foreground">No detailed cases for this theme yet.</p>
       </div>
     );
   }
 
   return (
-    <div className="space-y-3">
-      <p className="text-xs text-muted-foreground mb-4">
-        {cases.length} landmark cases relevant to this theme. Click to expand details.
+    <div className="space-y-4">
+      <p className="text-xs text-muted-foreground mb-2">
+        {cases.length} landmark cases. Click any case to expand the full breakdown.
       </p>
       {cases.map((c) => (
         <Card key={c.id} className="overflow-hidden">
@@ -354,14 +354,17 @@ function CasesTab({ cases }: { cases: ReturnType<typeof getCaseCardsByTheme> }) 
             onClick={() => setExpandedId(expandedId === c.id ? null : c.id)}
             className="w-full text-left flex items-center justify-between"
           >
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3 min-w-0">
               <Gavel className="w-4 h-4 text-warning shrink-0" />
-              <h3 className="font-serif text-base italic">{c.front}</h3>
+              <div className="min-w-0">
+                <h3 className="font-serif text-base italic truncate">{c.name}</h3>
+                <p className="text-[10px] text-muted-foreground tracking-wider mt-0.5">{c.citation}</p>
+              </div>
             </div>
             {expandedId === c.id ? (
-              <ChevronUp className="w-4 h-4 text-muted-foreground shrink-0" />
+              <ChevronUp className="w-4 h-4 text-muted-foreground shrink-0 ml-2" />
             ) : (
-              <ChevronDown className="w-4 h-4 text-muted-foreground shrink-0" />
+              <ChevronDown className="w-4 h-4 text-muted-foreground shrink-0 ml-2" />
             )}
           </button>
 
@@ -369,11 +372,71 @@ function CasesTab({ cases }: { cases: ReturnType<typeof getCaseCardsByTheme> }) 
             <motion.div
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
-              className="mt-4 pl-7"
+              className="mt-5 space-y-5 text-sm"
             >
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                {c.back}
-              </p>
+              {/* Facts */}
+              <div>
+                <p className="text-[10px] uppercase tracking-[0.2em] font-semibold mb-2">Facts</p>
+                <p className="text-muted-foreground leading-relaxed">{c.facts}</p>
+              </div>
+
+              {/* Legal Issues */}
+              <div>
+                <p className="text-[10px] uppercase tracking-[0.2em] font-semibold mb-2">Legal Issues</p>
+                <ul className="space-y-1.5">
+                  {c.legalIssues.map((issue, i) => (
+                    <li key={i} className="text-muted-foreground leading-relaxed pl-3 border-l-2 border-primary/20">
+                      {issue}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Reasoning */}
+              <div>
+                <p className="text-[10px] uppercase tracking-[0.2em] font-semibold mb-2">Court&apos;s Reasoning &amp; Decision</p>
+                <p className="text-muted-foreground leading-relaxed">{c.reasoning}</p>
+              </div>
+
+              {/* Key Principles */}
+              <div>
+                <p className="text-[10px] uppercase tracking-[0.2em] font-semibold mb-2">Key Principles Established</p>
+                <ul className="space-y-1.5">
+                  {c.keyPrinciples.map((principle, i) => (
+                    <li key={i} className="text-muted-foreground leading-relaxed pl-3 border-l-2 border-success/20">
+                      {principle}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Significance */}
+              <div>
+                <p className="text-[10px] uppercase tracking-[0.2em] font-semibold mb-2">Significance</p>
+                <p className="text-muted-foreground leading-relaxed">{c.significance}</p>
+              </div>
+
+              {/* Notable Quotes */}
+              {c.notableQuotes.length > 0 && (
+                <div>
+                  <p className="text-[10px] uppercase tracking-[0.2em] font-semibold mb-2">Notable Quotes</p>
+                  <div className="space-y-2">
+                    {c.notableQuotes.map((quote, i) => (
+                      <blockquote key={i} className="pl-3 border-l-2 border-warning/30 italic text-muted-foreground leading-relaxed">
+                        &ldquo;{quote}&rdquo;
+                      </blockquote>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Dissent */}
+              {c.dissent && (
+                <div>
+                  <p className="text-[10px] uppercase tracking-[0.2em] font-semibold mb-2">Dissenting Opinions</p>
+                  <p className="text-muted-foreground leading-relaxed pl-3 border-l-2 border-error/20">{c.dissent}</p>
+                </div>
+              )}
             </motion.div>
           )}
         </Card>

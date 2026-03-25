@@ -110,3 +110,17 @@ export interface TestTheme {
   sectionIds: string[];
   scenarioPrefix: string;
 }
+
+export interface DetailedCase {
+  id: string;
+  name: string;
+  citation: string;
+  themeId: ThemeId;
+  facts: string;
+  legalIssues: string[];
+  reasoning: string;
+  keyPrinciples: string[];
+  significance: string;
+  notableQuotes: string[];
+  dissent?: string;
+}

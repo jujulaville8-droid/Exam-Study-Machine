@@ -1,5 +1,6 @@
-import type { TestTheme, ThemeId, Flashcard, QuizQuestion, Scenario } from "@/types";
+import type { TestTheme, ThemeId, Flashcard, QuizQuestion, Scenario, DetailedCase } from "@/types";
 import type { CharterSection } from "@/types";
+import { detailedCases } from "./detailed-cases";
 import { flashcards } from "./flashcards";
 import { quizQuestions } from "./quiz-questions";
 import { scenarios } from "./scenarios";
@@ -155,6 +156,10 @@ export function getScenariosByTheme(themeId: ThemeId): Scenario[] {
 
 export function getCaseCardsByTheme(themeId: ThemeId): Flashcard[] {
   return getFlashcardsByTheme(themeId).filter((c) => c.category === "case");
+}
+
+export function getDetailedCasesByTheme(themeId: ThemeId): DetailedCase[] {
+  return detailedCases.filter((c) => c.themeId === themeId);
 }
 
 export function getCharterSectionsByTheme(themeId: ThemeId): CharterSection[] {

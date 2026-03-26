@@ -90,22 +90,19 @@ export default function ThemePage() {
 
   const handleQuizAnswer = useCallback(
     (isCorrect: boolean) => {
-      if (isCorrect) setQuizCorrect((c) => c + 1);
-      setTimeout(() => {
-        if (quizIndex + 1 >= quizQuestions.length) {
-          const finalCorrect = isCorrect ? quizCorrect + 1 : quizCorrect;
-          saveQuizAttempt({
-            date: new Date().toISOString(),
-            totalQuestions: quizQuestions.length,
-            correctAnswers: finalCorrect,
-            topics: [themeId],
-          });
-          setQuizCorrect(finalCorrect);
-          setQuizPhase("results");
-        } else {
-          setQuizIndex((i) => i + 1);
-        }
-      }, 500);
+      const newCorrect = isCorrect ? quizCorrect + 1 : quizCorrect;
+      setQuizCorrect(newCorrect);
+      if (quizIndex + 1 >= quizQuestions.length) {
+        saveQuizAttempt({
+          date: new Date().toISOString(),
+          totalQuestions: quizQuestions.length,
+          correctAnswers: newCorrect,
+          topics: [themeId],
+        });
+        setQuizPhase("results");
+      } else {
+        setQuizIndex((i) => i + 1);
+      }
     },
     [quizIndex, quizQuestions.length, quizCorrect, themeId]
   );
@@ -554,14 +551,26 @@ function QuizTab({
     );
   }
 
+  const currentQ = questions[currentIndex];
+  if (!currentQ) return null;
+
   return (
     <div className="max-w-2xl mx-auto space-y-6">
+      <div className="flex items-center justify-between">
+        <span className="text-sm tabular-nums text-muted-foreground">
+          <span className="text-foreground font-medium">{currentIndex + 1}</span>
+          <span className="mx-1">/</span>
+          {questions.length}
+        </span>
+        <Badge variant="success">{correct} correct</Badge>
+      </div>
       <ProgressBar
         value={currentIndex + 1}
         max={questions.length}
       />
       <QuizQuestion
-        question={questions[currentIndex]}
+        key={currentQ.id}
+        question={currentQ}
         onAnswer={onAnswer}
       />
     </div>
